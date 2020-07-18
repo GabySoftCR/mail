@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>Scratch</title>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+    fetch('/emails', {
+  method: 'POST',
+  body: JSON.stringify({
+      recipients: 'lucy@cs50.ed',
+      subject: 'Meeting time',
+      body: 'How about we meet tomorrow at 3pm?'
+  })
+})
+.then(response => response.json())
+.then(result => {
+    // Print result
+    console.log("Print this line");
+    console.log(result);
+});
+
+    });
+    </script>
+<body>
+ <h2>{{ request.user.email }}</h2>
+  <h2>{{ request.user}}</h2>
+<h3>Emails</h3>
+ <ul id="email"></ul>
+
+
+</body>
+
+
+</html>
