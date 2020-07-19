@@ -6,8 +6,12 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
 
-  document.querySelector('#compose-view').onsubmit = send_email;
-
+  document.querySelector('#compose-view').onsubmit = send_email();
+  //document.querySelectorAll('#emails-view').forEach(function(emails-view) {
+  //              button.onfocus = function() {
+  //                  document.querySelector("#emails-view").style.color = "blue";
+   //             }
+   //         });
   // By default, load the inbox
   load_mailbox('inbox');
 });
@@ -43,7 +47,7 @@ function load_mailbox(mailbox) {
                     // Create a div item for each  email
                     const mail = document.createElement('div');
                     mail.className = 'mail';
-                    mail.id = `${item["id"]}`
+                    mail.dataset.id = `${item["id"]}`
                     line = `<span class="col left">${item["recipients"]}</span><span class="col mid">${item["subject"]}</span class="col right"><span>${item["timestamp"]}</span>`
                     mail.innerHTML = line;
 
@@ -69,7 +73,6 @@ function send_email(){
     console.log(result);
     return load_mailbox('sent');
     });
-
 }
 
 
