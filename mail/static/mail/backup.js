@@ -31,25 +31,22 @@ function load_mailbox(mailbox) {
   document.querySelector('#compose-view').style.display = 'none';
 
   // Show the mailbox name
-  document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3><br>`;
-  table = document.createElement('table');
-  box = `/emails/${mailbox}`
-  fetch(box)
+  eview = document.querySelector('#emails-view');
+  document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+  //eview.innerHTML= `<ul id='mail'></ul>`//
+  eview.innerHTML = `<p>><\p>`
+  fetch('/emails/sent')
         .then(response => response.json())
         .then(emails => {
           // Print emails
 
              emails.forEach (item => {
-                    // Create a div item for each  email
-                    const mail = document.createElement('div');
-                    mail.className = 'mail';
-                    mail.id = `${item["id"]}`
-                    line = `<span class="col left">${item["recipients"]}</span><span class="col mid">${item["subject"]}</span class="col right"><span>${item["timestamp"]}</span>`
-                    mail.innerHTML = line;
+                    // Create a list item for the new email
+                    const li = document.createElement('li');
+                    li.innerHTML = `${item["recipients"]}` +"    "+`${item["subject"]}` +"         "+  `${item["timestamp"]}`;
 
-                    // Add new element to view:
-                    document.querySelector('#emails-view').append(mail);
-
+                    // Add new element to our unordered list:
+                    eview.appendChild(li);
                      });
 
          });
